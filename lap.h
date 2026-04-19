@@ -7,19 +7,19 @@
 
 
 #ifdef __GNUC__
-#define always_inline __attribute__((always_inline)) inline
+#define LAPVJ_ALWAYS_INLINE __attribute__((always_inline)) inline
 #define restrict __restrict__
 #elif _WIN32
-#define always_inline __forceinline
+#define LAPVJ_ALWAYS_INLINE __forceinline
 #define restrict __restrict
 #else
-#define always_inline inline
+#define LAPVJ_ALWAYS_INLINE inline
 #define restrict
 #endif
 
 
 template <typename idx, typename cost>
-always_inline std::tuple<cost, cost, idx, idx>
+LAPVJ_ALWAYS_INLINE std::tuple<cost, cost, idx, idx>
 find_umins_regular(
     idx dim, idx i, const cost *restrict assign_cost,
     const cost *restrict v) {
@@ -50,7 +50,7 @@ find_umins_regular(
 #define DOUBLE_MIN_DIM 100000  // 64-bit code is actually always slower
 
 template <typename idx>
-always_inline std::tuple<float, float, idx, idx>
+LAPVJ_ALWAYS_INLINE std::tuple<float, float, idx, idx>
 find_umins_avx2(
     idx dim, idx i, const float *restrict assign_cost,
     const float *restrict v) {
@@ -129,7 +129,7 @@ find_umins_avx2(
 }
 
 template <typename idx>
-always_inline std::tuple<double, double, idx, idx>
+LAPVJ_ALWAYS_INLINE std::tuple<double, double, idx, idx>
 find_umins_avx2(
     idx dim, idx i, const double *restrict assign_cost,
     const double *restrict v) {
@@ -208,7 +208,7 @@ find_umins_avx2(
 }
 
 template <bool avx2, typename idx, typename cost>
-always_inline std::tuple<cost, cost, idx, idx>
+LAPVJ_ALWAYS_INLINE std::tuple<cost, cost, idx, idx>
 find_umins(
     idx dim, idx i, const cost *restrict assign_cost,
     const cost *restrict v) {
